@@ -1,5 +1,6 @@
 JFLAGS = -d bin -sourcepath src
-JUNIT5_JAR = lib/junit-platform-console-standalone-1.8.2.jar 
+JUNIT5_JAR = lib/junit-platform-console-standalone-1.8.2.jar
+MOCKITO_JAR = lib/mockito-core-5.8.0.jar
 JUNIT5_RUNNER = org.junit.platform.console.ConsoleLauncher
 CKSTYLE_COMMAND =  -jar lib/checkstyle-10.5.0-all.jar 
 
@@ -12,10 +13,10 @@ default:
 	@echo "____________________ check - runs checkstyle"
 
 compile: $(JUNIT5_JAR)
-	javac $(JFLAGS) -cp .:$(JUNIT5_JAR) src/**/**/*.java
+	javac $(JFLAGS) -cp .:$(JUNIT5_JAR):$(MOCKITO_JAR) src/**/**/*.java
 
 test: $(JUNIT5_JAR)
-	java -cp bin:$(JUNIT5_JAR) $(JUNIT5_RUNNER) --scan-class-path 
+	java -cp bin:$(JUNIT5_JAR):$(MOCKITO_JAR) $(JUNIT5_RUNNER) --scan-class-path 
 
 demo: bin/client/Demo.class
 	java -cp .:bin client/Demo
